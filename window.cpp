@@ -1,4 +1,5 @@
 #include <QtGui>
+#include <QHBoxLayout>
 
 #include "glwidget.h"
 #include "window.h"
