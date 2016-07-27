@@ -39,3 +39,6 @@ sources.path = XmasSquare
 INSTALLS += target \
     sources
 OTHER_FILES += Makefile
+
+DISTFILES += \
+    README.md
