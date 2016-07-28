@@ -29,6 +29,8 @@ SOURCES = glwidget.cpp \
 QT += opengl
 
 # install
+INCLUDEPATH += /usr/local/Cellar/glm/0.9.7.1/include
+
 target.path = XmasSquare
 sources.files = $$SOURCES \
     $$HEADERS \
