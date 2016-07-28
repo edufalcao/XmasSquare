@@ -1,6 +1,7 @@
 #include <QtGui>
 #include <QtOpenGL>
 #include <OpenGL/gl.h>
+#include <QtDebug>
 #include <math.h>
 #include <iostream>
 #include "glwidget.h"
@@ -48,6 +49,7 @@ QSize GLWidget::sizeHint() const
 void GLWidget::setXRotation(int angle)
 {
     normalizeAngle(&angle);
+    qDebug() << "Rotating X " << angle;
     if (angle != xRot) {
         xRot = angle;
         updateGL();
@@ -58,6 +60,7 @@ void GLWidget::setXRotation(int angle)
 void GLWidget::setYRotation(int angle)
 {
     normalizeAngle(&angle);
+    qDebug() << "Rotating Y " << angle;
     if (angle != yRot) {
         yRot = angle;
         updateGL();
@@ -67,6 +70,7 @@ void GLWidget::setYRotation(int angle)
 void GLWidget::setZRotation(int angle)
 {
     normalizeAngle(&angle);
+    qDebug() << "Rotating Z " << angle;
     if (angle != zRot) {
         zRot = angle;
         updateGL();
@@ -93,6 +97,7 @@ void GLWidget::paintGL()
     glm::lookAt(glm::vec3(eyeX, eyeY, eyeZ), // posição observador
               glm::vec3(atX, atY, atZ), // lookAt
               glm::vec3(normalX, normalY, normalZ));
+
     glMatrixMode(GL_MODELVIEW);
 
 
@@ -136,6 +141,26 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         setXRotation(xRot + 8 * dy);
         setZRotation(zRot + 8 * dx);
     }
+    lastPos = event->pos();
+}
+
+void GLWidget::wheelEvent(QWheelEvent *event)
+{
+    int dx = event->x() - lastPos.x();
+    int dy = event->y() - lastPos.y();
+
+    switch(event->orientation()) {
+    case Qt::Vertical:
+        setXRotation(xRot + dy);
+        setYRotation(yRot + dx);
+    case Qt::Horizontal:
+        setXRotation(xRot + dy);
+        setZRotation(zRot + dx);
+    }
+
+    qDebug() << event->orientation();
+
+
     lastPos = event->pos();
 }
 
