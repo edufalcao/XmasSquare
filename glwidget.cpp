@@ -1,9 +1,10 @@
 #include <QtGui>
 #include <QtOpenGL>
+#include <OpenGL/gl.h>
 #include <math.h>
 #include <iostream>
 #include "glwidget.h"
-
+#include <glm/gtc/matrix_transform.hpp>
 
 GLWidget::GLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -87,10 +88,11 @@ void GLWidget::paintGL()
 {    
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(80.0, width()/height(), 1, 200);
-    gluLookAt(eyeX, eyeY, eyeZ, // posição observador
-              atX, atY, atZ, // lookAt
-              normalX, normalY, normalZ);
+    float widthHeight = (width()/height())*1.0f;
+    glm::perspective(45.0f, widthHeight, 1.0f, 100.0f);
+    glm::lookAt(glm::vec3(eyeX, eyeY, eyeZ), // posição observador
+              glm::vec3(atX, atY, atZ), // lookAt
+              glm::vec3(normalX, normalY, normalZ));
     glMatrixMode(GL_MODELVIEW);
 
 
