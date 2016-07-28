@@ -4,3 +4,14 @@ An old project I wrote in university with [@edufalcao](https://github.com/edufal
 
 The code is very ugly, it has things named in Portuguese, and I can't remember how we wrote most of what's here. :D
 
+# Requirements
+
+ - Qt
+ - GLM (in macOS you can do `brew install glm`
+
+# Compiling
+
+ ```
+ $ qmake
+ $ make
+ ```
